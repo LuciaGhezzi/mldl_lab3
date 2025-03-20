@@ -59,9 +59,10 @@ if __name__ == '__main__':
     visualization(dataloader_train)
 
     # LAB 2
+    modify_dataset()
     # Load the dataset
     tiny_imagenet_dataset_train = ImageFolder(root='tiny-imagenet/tiny-imagenet-200/train', transform=transform_2())
-    tiny_imagenet_dataset_val = ImageFolder(root='tiny-imagenet/tiny-imagenet-200/test', transform=transform_2())
+    tiny_imagenet_dataset_val = ImageFolder(root='tiny-imagenet/tiny-imagenet-200/val', transform=transform_2())
 
     # create dataloader
     train_loader, val_loader = dataloader(tiny_imagenet_dataset_train, tiny_imagenet_dataset_val, 32, True, False)
