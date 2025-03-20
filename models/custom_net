@@ -1,0 +1,40 @@
+from torch import nn
+
+# Define the custom neural network
+class CustomNet(nn.Module): #nn.Module classe per i moduli di reti neurali
+    def __init__(self): #tell the model which operations it will to
+        super(CustomNet, self).__init__()
+
+        # Define layers of the neural network
+        # 1st conv network takes 3 input nodes and outputs 64 nodes (nodes = pallini del network in ogni layer)
+        self.conv1 = nn.Conv2d(3, 64, kernel_size=3, padding=1, stride = 2) #check stride=2
+        # 2nd conv network takes 64 input nodes and outputs 128 nodes
+        self.conv2 = nn.Conv2d(64, 128, kernel_size=3, padding=1, stride = 2)
+        # Add more layers...
+        self.conv3 = nn.Conv2d(128, 256, kernel_size=3, padding=1, stride = 2)
+        self.conv4 = nn.Conv2d(256, 512, kernel_size=3, padding=1, stride = 2)
+        self.conv5 = nn.Conv2d(512, 512, kernel_size=3, padding=1, stride = 2)
+
+        self.flatten = nn.Flatten() # flatten the output of the previous layer
+        #last step--> go back to the 200 classes dimension
+        self.fc1 = nn.Linear(25088, 200) # 200 is the number of classes in TinyImageNet
+
+    def forward(self, x): #to call the model with input the data to make it do the previously defined operations on the data
+
+        # Define forward pass
+        x = self.conv1(x).relu() # activation function
+        #print('size of input after 1st conv layer:', x.shape)
+        x = self.conv2(x).relu()
+        #print('size of input after 2nd conv layer:', x.shape)
+        x = self.conv3(x).relu()
+        #print('size of input after 3rd conv layer:', x.shape)
+        x = self.conv4(x).relu()
+        #print('size of input after 4th conv layer:', x.shape)
+        #x = self.conv5(x).relu()
+        #print('size of input after 5th conv layer:', x.shape)
+
+        x = self.flatten(x) # flatten the input
+        #print('size of input after flattening: ', x.shape)
+        x = self.fc1(x)
+        #print('size of input after fc1: ', x.shape)
+        return x

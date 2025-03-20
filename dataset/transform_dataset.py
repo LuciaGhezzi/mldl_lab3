@@ -1,6 +1,7 @@
 import torchvision.transforms as transforms
 
-def transform():
+# lab 1 transformations to vislize the images
+def transform_1():
     # Define transformations for the dataset
     transform = {
         'train' : transforms.Compose([
@@ -16,5 +17,14 @@ def transform():
             transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
             ]),
     }
+    return transform
+
+# lab 2 transformation to contruct the NN
+def transform_2():
+    transform = transforms.Compose([
+    transforms.Resize((224, 224)),  # Resize to fit the input dimensions of the network
+    transforms.ToTensor(),
+    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+    ])
     return transform
 
